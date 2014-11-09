@@ -12,7 +12,12 @@ var plugin = 'gulp-react-st',
 
 module.exports = function (ops) {
     var type = ops.type || 'jsx',
-        dir = ops.relativeSourceDir;
+        htmlDir = ops.relativeHtmlDir,
+        jsDir = ops.relativeJsDir;
+
+    function changeDir(filePath, dir) {
+        return path.join(path.dirname(filePath), dir, path.basename(filePath));
+    }
 
     function transform(file, enc, cb) {
         if (file.isNull()) return cb(null, file);
@@ -23,15 +28,14 @@ module.exports = function (ops) {
             html = js,
             filePath = file.path;
 
-        if (dir) {
-            filePath = path.join(path.dirname(filePath), dir, path.basename(filePath));
-        }
-
         if (jsExt.test(filePath)) {
-            html = fs.readFileSync(gutil.replaceExtension(filePath, '.html'));
+            filePath = htmlDir ? changeDir(filePath, htmlDir) : filePath;
+            html = fs.readFileSync(gutil.replaceExtension(filePath, '.html')).toString();
         }
         else {
-            js = fs.readFileSync(gutil.replaceExtension(filePath, '.js'));
+            filePath = jsDir ? changeDir(filePath, jsDir) : filePath;
+            pathJsx = gutil.replaceExtension(filePath, '.' + type);
+            js = fs.readFileSync(gutil.replaceExtension(filePath, '.js')).toString();
         }
 
         convert(js, html, function (err, jsx) {
