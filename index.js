@@ -29,11 +29,11 @@ module.exports = function (ops) {
             filePath = file.path;
 
         if (jsExt.test(filePath)) {
-            filePath = htmlDir ? changeDir(filePath, htmlDir) : filePath;
+            filePath = htmlDir ? (typeof htmlDir === 'function' ? htmlDir(file) : changeDir(filePath, htmlDir)) : filePath;
             html = fs.readFileSync(gutil.replaceExtension(filePath, '.html')).toString();
         }
         else {
-            filePath = jsDir ? changeDir(filePath, jsDir) : filePath;
+            filePath = jsDir ? (typeof jsDir === 'function' ? jsDir(file) : changeDir(filePath, jsDir)) : filePath;
             pathJsx = gutil.replaceExtension(filePath, '.' + type);
             js = fs.readFileSync(gutil.replaceExtension(filePath, '.js')).toString();
         }
