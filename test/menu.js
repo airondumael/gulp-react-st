@@ -1,4 +1,6 @@
 var List = React.createClass({
+    displayName: 'List',
+
     getInitialState: function() {
         return {focused: 0};
     },

@@ -1,4 +1,6 @@
-var List = React.createClass({displayName: 'List',
+var List = React.createClass({
+    displayName: 'List',
+
     getInitialState: function() {
         return {focused: 0};
     },
@@ -6,7 +8,7 @@ var List = React.createClass({displayName: 'List',
     render: function() {
         var self = this;
 
-        return (React.createElement("ul", null, 
+        return React.createElement("ul", null, 
     
                 this.props.items.map(function(m, index) {
                     var style = '';
@@ -17,10 +19,10 @@ var List = React.createClass({displayName: 'List',
 
                     var attr = {name: 'value'};
 
-                    return (React.createElement(Item, React.__spread({},  attr, {title: "Item", className: 'item ' + style}), m));
+                    return React.createElement(Item, React.__spread({},  attr, {title: "Item", className: 'item ' + style}), m);
                 })
             
     
-));
+);
     }
 });
