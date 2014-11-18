@@ -3,6 +3,8 @@ gulp-react-st
 
 Gulp plugin for https://github.com/redexp/react-separate-template
 
+[![Build Status](https://travis-ci.org/redexp/gulp-react-st.svg?branch=master)](https://travis-ci.org/redexp/gulp-react-st)
+
 ## Installation
 
 `npm install gulp-react-st`
