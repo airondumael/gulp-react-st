@@ -38,6 +38,8 @@ module.exports = function (ops) {
             js = fs.readFileSync(gutil.replaceExtension(filePath, '.js')).toString();
         }
 
+        var stream = this;
+
         convert(js, html, function (err, jsx) {
             if (err) {
                 return cb(new PluginError(plugin, err));
@@ -55,7 +57,9 @@ module.exports = function (ops) {
             file.contents = new Buffer(jsx);
             file.path = pathJsx;
 
-            cb(null, file);
+            stream.push(file);
+
+            cb();
         });
     }
 
